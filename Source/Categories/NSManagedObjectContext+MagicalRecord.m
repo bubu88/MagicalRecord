@@ -33,20 +33,29 @@ static void const * kMagicalRecordNotifiesMainContextAssociatedValueKey = @"kMag
 + (void) MR_setDefaultContext:(NSManagedObjectContext *)moc
 {
     NSPersistentStoreCoordinator *coordinator = [NSPersistentStoreCoordinator MR_defaultStoreCoordinator];
+    
+    /* 앱 실행시 엄청 느리게 만든다. 현재 밴드앱에서 iCloud 사용하지 않으므로 (테스트 결과 항상 false만 return한다) 이 부분 제거
+     
     if ([MagicalRecordHelpers isICloudEnabled]) 
     {
         [defaultManageObjectContext_ MR_stopObservingiCloudChangesInCoordinator:coordinator];
     }
+     
+     */
     
     MR_RETAIN(moc);
     MR_RELEASE(defaultManageObjectContext_);
 
     defaultManageObjectContext_ = moc;
     
-    if ([MagicalRecordHelpers isICloudEnabled]) 
+    /* 앱 실행시 엄청 느리게 만든다. 현재 밴드앱에서 iCloud 사용하지 않으므로 (테스트 결과 항상 false만 return한다) 이 부분 제거
+
+    if ([MagicalRecordHelpers isICloudEnabled])
     {
         [defaultManageObjectContext_ MR_observeiCloudChangesInCoordinator:coordinator];
     }
+     
+     */
 }
 
 + (void)MR_resetDefaultContext
