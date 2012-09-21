@@ -171,8 +171,8 @@ NSString * const kMagicalRecordPSCDidCompleteiCloudSetupNotification = @"kMagica
         if (cloudURL)   //iCloud is available
         {
             NSDictionary *iCloudOptions = [NSDictionary dictionaryWithObjectsAndKeys:
-                                           contentNameKey, NSPersistentStoreUbiquitousContentNameKey,
-                                           cloudURL, NSPersistentStoreUbiquitousContentURLKey, nil];
+                                           contentNameKey, @"NSPersistentStoreUbiquitousContentNameKey",
+                                           cloudURL, @"NSPersistentStoreUbiquitousContentURLKey", nil];
             options = [options MR_dictionaryByMergingDictionary:iCloudOptions];
         }
         else 

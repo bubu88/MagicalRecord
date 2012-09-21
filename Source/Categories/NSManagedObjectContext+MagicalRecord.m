@@ -95,7 +95,7 @@ static void const * kMagicalRecordNotifiesMainContextAssociatedValueKey = @"kMag
     if (![MagicalRecordHelpers isICloudEnabled]) return;
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(MR_mergeChangesFromiCloud:)
-                                                 name:NSPersistentStoreDidImportUbiquitousContentChangesNotification
+                                                 name:@"com.apple.coredata.ubiquity.importer.didfinishimport"
                                                object:coordinator];
     
 }
@@ -104,7 +104,7 @@ static void const * kMagicalRecordNotifiesMainContextAssociatedValueKey = @"kMag
 {
     if (![MagicalRecordHelpers isICloudEnabled]) return;
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSPersistentStoreDidImportUbiquitousContentChangesNotification 
+                                                    name:@"com.apple.coredata.ubiquity.importer.didfinishimport"
                                                   object:coordinator];
 }
 
