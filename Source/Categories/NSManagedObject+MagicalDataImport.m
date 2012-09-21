@@ -42,7 +42,14 @@ NSString * const kMagicalRecordImportRelationshipTypeKey = @"type";
             if (![value isKindOfClass:[NSDate class]]) 
             {
                 NSString *dateFormat = [[attributeInfo userInfo] valueForKey:kMagicalRecordImportCustomDateFormatKey];
-                value = dateFromString([value description], dateFormat ?: kMagicalRecordImportDefaultDateFormatString);
+                NSString *valueDescripion = [value description];
+                NSString *format = dateFormat ?: kMagicalRecordImportDefaultDateFormatString;
+                if ([valueDescripion length] < 5)
+                {
+                    format = [NSString stringWithFormat:@"yyyy%@", format];
+                    valueDescripion = [NSString stringWithFormat:@"2012%@", valueDescripion];
+                }
+                value = dateFromString(valueDescripion, format);
             }
             value = adjustDateForDST(value);
         }
