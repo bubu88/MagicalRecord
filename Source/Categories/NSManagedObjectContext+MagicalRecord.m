@@ -126,11 +126,16 @@ static void const * kMagicalRecordNotifiesMainContextAssociatedValueKey = @"kMag
 
 - (void) MR_mergeChangesFromNotification:(NSNotification *)notification;
 {
-	MRLog(@"Merging changes to %@context%@", 
-          self == [NSManagedObjectContext MR_defaultContext] ? @"*** DEFAULT *** " : @"",
-          ([NSThread isMainThread] ? @" *** on Main Thread ***" : @""));
+    NSManagedObjectContext* sContext = [notification object];
     
-	[self mergeChangesFromContextDidSaveNotification:notification];
+    if ([[sContext persistentStoreCoordinator] isEqual: [NSPersistentStoreCoordinator MR_defaultStoreCoordinator]])
+    {
+        MRLog(@"Merging changes to %@context%@",
+              self == [NSManagedObjectContext MR_defaultContext] ? @"*** DEFAULT *** " : @"",
+              ([NSThread isMainThread] ? @" *** on Main Thread ***" : @""));
+
+        [self mergeChangesFromContextDidSaveNotification:notification];
+    }
 }
 
 - (void) MR_mergeChangesOnMainThread:(NSNotification *)notification;
