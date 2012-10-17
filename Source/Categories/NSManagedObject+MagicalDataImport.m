@@ -202,6 +202,10 @@ NSString * const kMagicalRecordImportRelationshipTypeKey = @"type";
     {
         [self performSelector:@selector(willImport)];
     }
+    if ([self respondsToSelector:@selector(willImport:)])
+    {
+        [self performSelector:@selector(willImport:) withObject:objectData];
+    }
     
     NSDictionary *attributes = [[self entity] attributesByName];
     [self MR_setAttributes:attributes forKeysWithDictionary:objectData];
@@ -241,6 +245,10 @@ NSString * const kMagicalRecordImportRelationshipTypeKey = @"type";
     {
         [self performSelector:@selector(didImport)];
     }
+    if ([self respondsToSelector:@selector(didImport:)])
+    {
+        [self performSelector:@selector(didImport:) withObject:objectData];
+    }
 }
 
 - (void) MR_updateValuesForKeysWithDictionary:(id)objectData
@@ -249,6 +257,10 @@ NSString * const kMagicalRecordImportRelationshipTypeKey = @"type";
     if ([self respondsToSelector:@selector(willImport)])
     {
         [self performSelector:@selector(willImport)];
+    }
+    if ([self respondsToSelector:@selector(willImport:)])
+    {
+        [self performSelector:@selector(willImport:) withObject:objectData];
     }
     
     NSDictionary *attributes = [[self entity] attributesByName];
@@ -278,6 +290,10 @@ NSString * const kMagicalRecordImportRelationshipTypeKey = @"type";
     if ([self respondsToSelector:@selector(didImport)])
     {
         [self performSelector:@selector(didImport)];
+    }
+    if ([self respondsToSelector:@selector(didImport:)])
+    {
+        [self performSelector:@selector(didImport:) withObject:objectData];
     }
 }
 
