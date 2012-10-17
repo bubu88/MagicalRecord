@@ -14,6 +14,29 @@ build/
 *.mode1v3
 *.mode2v3
 
+# Xcode
+build/*
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+*.xcworkspace
+!default.xcworkspace
+xcuserdata
+profile
+*.moved-aside
+**/.xccurrentversion
+**/Breakpoints.xcbkptlist
+*.xcbkptlist
+
+# OSX
+**/.DS_Store
+
+
 UserInterfaceState.xcuserstate
 /Magical Record.xcodeproj/project.xcworkspace/xcuserdata/saul.xcuserdatad/UserInterfaceState.xcuserstate
 /Magical Record.xcodeproj/xcuserdata/saul.xcuserdatad/xcdebugger/Breakpoints.xcbkptlist
