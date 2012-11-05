@@ -71,7 +71,7 @@ void cleanup_save_queue()
     
     localContext.MR_notifiesMainContextOnSave = NO;
     [localContext MR_stopObservingiCloudChangesInCoordinator:defaultCoordinator];
-//    [mainContext setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+    [mainContext setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
 }
 
 + (void) saveDataWithBlock:(void(^)(NSManagedObjectContext *localContext))block
