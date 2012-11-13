@@ -427,7 +427,7 @@ NSDate * dateFromString(NSString *value, NSString *format)
     static NSMutableDictionary *formatterCache;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        formatterCache = [NSMutableDictionary dictionary];
+        formatterCache = [[NSMutableDictionary alloc] init];
     });
     if (![formatterCache objectForKey:format])
     {
@@ -439,7 +439,6 @@ NSDate * dateFromString(NSString *value, NSString *format)
     }
     NSDateFormatter *formatter = [formatterCache objectForKey:format];
     NSDate *parsedDate = [formatter dateFromString:value];
-    MR_AUTORELEASE(formatter);
 
     return parsedDate;
 }
