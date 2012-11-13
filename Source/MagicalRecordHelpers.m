@@ -424,11 +424,20 @@ NSDate * adjustDateForDST(NSDate *date)
 
 NSDate * dateFromString(NSString *value, NSString *format)
 {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setTimeZone:[NSTimeZone localTimeZone]];
-    [formatter setLocale:[NSLocale currentLocale]];
-    [formatter setDateFormat:format];
-    
+    static NSMutableDictionary *formatterCache;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formatterCache = [NSMutableDictionary dictionary];
+    });
+    if (![formatterCache objectForKey:format])
+    {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setTimeZone:[NSTimeZone localTimeZone]];
+        [formatter setLocale:[NSLocale currentLocale]];
+        [formatter setDateFormat:format];
+        [formatterCache setObject:formatter forKey:format];
+    }
+    NSDateFormatter *formatter = [formatterCache objectForKey:format];
     NSDate *parsedDate = [formatter dateFromString:value];
     MR_AUTORELEASE(formatter);
 
