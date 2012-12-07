@@ -97,11 +97,8 @@ NSString * const kMagicalRecordPSCDidCompleteiCloudSetupNotification = @"kMagica
 
 + (NSDictionary *) MR_autoMigrationOptions;
 {
-    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-                             [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
-                             [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
-                             nil];
-    return [NSDictionary dictionaryWithObject:options forKey:NSSQLitePragmasOption];
+    NSDictionary *options = @{NSSQLitePragmasOption:@{@"temp_store":@"MEMORY", @"journal_mode":@"MEMORY", @"count_changes":@"OFF", @"synchronous":@"OFF", NSInferMappingModelAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}};
+    return options;
 }
 
 - (NSPersistentStore *) MR_addAutoMigratingSqliteStoreNamed:(NSString *) storeFileName;
@@ -251,7 +248,7 @@ NSString * const kMagicalRecordPSCDidCompleteiCloudSetupNotification = @"kMagica
 
 + (NSPersistentStoreCoordinator *) MR_coordinatorWithSqliteStoreNamed:(NSString *)storeFileName
 {
-	return [self MR_coordinatorWithSqliteStoreNamed:storeFileName withOptions:nil];
+	return [self MR_coordinatorWithSqliteStoreNamed:storeFileName withOptions:@{NSSQLitePragmasOption:@{@"temp_store":@"MEMORY", @"journal_mode":@"MEMORY", @"count_changes":@"OFF", @"synchronous":@"OFF"}}];
 }
 
 @end
