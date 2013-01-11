@@ -432,6 +432,7 @@ NSDate * dateFromString(NSString *value, NSString *format)
     if (![formatterCache objectForKey:format])
     {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar]];
         [formatter setTimeZone:[NSTimeZone localTimeZone]];
         [formatter setLocale:[NSLocale currentLocale]];
         [formatter setDateFormat:format];
