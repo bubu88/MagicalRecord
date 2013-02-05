@@ -47,7 +47,14 @@ NSString * const kMagicalRecordImportRelationshipTypeKey = @"type";
                 if ([valueDescripion length] < 5)
                 {
                     format = [NSString stringWithFormat:@"yyyy%@", format];
-                    valueDescripion = [NSString stringWithFormat:@"2012%@", valueDescripion];
+                    if ([valueDescripion isEqualToString:@"1232"])
+                    {
+                        valueDescripion = nil;
+                    }
+                    else
+                    {
+                        valueDescripion = [NSString stringWithFormat:@"2012%@", valueDescripion];
+                    }
                 }
                 value = dateFromString(valueDescripion, format);
             }
