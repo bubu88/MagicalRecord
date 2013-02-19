@@ -433,8 +433,21 @@ NSDate * dateFromString(NSString *value, NSString *format)
     {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar]];
-        [formatter setTimeZone:[NSTimeZone localTimeZone]];
-        [formatter setLocale:[NSLocale currentLocale]];
+        if ([@"yyyy-MM-dd'T'HH:mm:ssZZZ" isEqualToString:format])
+        {
+            [formatter setTimeZone:[NSTimeZone localTimeZone]];
+            [formatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
+        }
+        else if ([@"yyyy-MM-dd'T'HH:mm:ss'Z'" isEqualToString:format])
+        {
+            [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+            [formatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
+        }
+        else
+        {
+            [formatter setTimeZone:[NSTimeZone localTimeZone]];
+            [formatter setLocale:[NSLocale currentLocale]];
+        }
         [formatter setDateFormat:format];
         [formatterCache setObject:formatter forKey:format];
     }
