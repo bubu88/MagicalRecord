@@ -58,7 +58,10 @@ NSString * const kMagicalRecordImportRelationshipTypeKey = @"type";
                 }
                 value = dateFromString(valueDescripion, format);
             }
+            /*
+             Bug fix : https://github.com/magicalpanda/MagicalRecord/commit/da3971038562e943103df61d8a1efec11ccef766
             value = adjustDateForDST(value);
+             */
         }
     }
     
