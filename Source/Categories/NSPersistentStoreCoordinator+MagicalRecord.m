@@ -97,7 +97,7 @@ NSString * const kMagicalRecordPSCDidCompleteiCloudSetupNotification = @"kMagica
 
 + (NSDictionary *) MR_autoMigrationOptions;
 {
-    NSDictionary *options = @{NSSQLitePragmasOption:@{@"temp_store":@"MEMORY", @"journal_mode":@"MEMORY", @"count_changes":@"OFF", @"synchronous":@"OFF", NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}};
+    NSDictionary *options = @{NSSQLitePragmasOption:@{@"temp_store":@"MEMORY", @"journal_mode":@"MEMORY", @"count_changes":@"OFF", @"synchronous":@"OFF"}, NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES};
     return options;
 }
 
