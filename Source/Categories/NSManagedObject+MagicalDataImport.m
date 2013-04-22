@@ -111,6 +111,10 @@ NSString * const kMagicalRecordImportRelationshipTypeKey = @"type";
     {
         NSManagedObjectContext *context = [self managedObjectContext];
         Class managedObjectClass = NSClassFromString([destinationEntity managedObjectClassName]);
+        if ([(id)managedObjectClass respondsToSelector:@selector(subclassClass:)])
+        {
+            managedObjectClass = [(id)managedObjectClass performSelector:@selector(subclassClass:) withObject:singleRelatedObjectData];
+        }
         objectForRelationship = [managedObjectClass MR_findFirstByAttribute:[relationshipInfo MR_primaryKey]
                                                                withValue:relatedValue
                                                                inContext:context];
