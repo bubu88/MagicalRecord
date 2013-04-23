@@ -25,7 +25,17 @@ NSString * const kMagicalRecordImportPrimaryAttributeKey = @"primaryAttributeKey
 
 - (NSManagedObject *) MR_createInstanceFromDictionary:(id)objectData inContext:(NSManagedObjectContext *)context
 {
-    NSManagedObject *relatedObject = [[self class] insertNewObjectForEntityForName:[self name] 
+    NSString *entityName = [self name];
+    if ([self isAbstract])
+    {
+        Class managedObjectClass = NSClassFromString([self managedObjectClassName]);
+        if ([(id)managedObjectClass respondsToSelector:@selector(subclassClass:)])
+        {
+            managedObjectClass = [(id)managedObjectClass performSelector:@selector(subclassClass:) withObject:objectData];
+        }
+        entityName = NSStringFromClass(managedObjectClass);
+    }
+    NSManagedObject *relatedObject = [[self class] insertNewObjectForEntityForName:entityName
                                                             inManagedObjectContext:context];
     
     [relatedObject MR_importValuesForKeysWithDictionary:objectData];
