@@ -268,7 +268,7 @@ static void const * kMagicalRecordNotifiesMainContextAssociatedValueKey = @"kMag
 #pragma clang diagnostic pop
 
         PRIVATE_QUEUES_ENABLED(
-                               if (enabled)
+                               if (enabled && self.parentContext != mainContext)
                                {
                                    [self setParentContext:mainContext];
                                }
