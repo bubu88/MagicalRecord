@@ -62,12 +62,25 @@ void cleanup_save_queue()
         [localContext setMergePolicy:NSOverwriteMergePolicy];
     }
     
-    block(localContext);
+    THREAD_ISOLATION_ENABLED
+    (
+        block(localContext);
+        if ([localContext hasChanges])
+        {
+            [localContext MR_saveWithErrorHandler:errorHandler];
+        }
+    )
     
-    if ([localContext hasChanges]) 
-    {
-        [localContext MR_saveWithErrorHandler:errorHandler];
-    }
+    PRIVATE_QUEUES_ENABLED
+    (
+        [localContext performBlockAndWait:^{
+            block(localContext);
+            if ([localContext hasChanges])
+            {
+                [localContext MR_saveWithErrorHandler:errorHandler];
+            }
+        }];
+    )
     
     localContext.MR_notifiesMainContextOnSave = NO;
 //    [localContext MR_stopObservingiCloudChangesInCoordinator:defaultCoordinator];
