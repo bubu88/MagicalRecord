@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class NSAttributeDescription, NSRelationshipDescription;
 @interface NSNumber (MagicalRecord_DataImport)
 
 - (NSString *) MR_lookupKeyForAttribute:(NSAttributeDescription *)attributeInfo;
